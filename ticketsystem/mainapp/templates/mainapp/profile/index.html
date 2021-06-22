@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="card shadow-none border animate__animated">
+        <div class="card-header"><h5 class="card-title">{{ user.username }}</h5>
+        </div>
+        <div class="card-body">
+            <p>Ваш ID: {{ user.id }}</p>
+            <p>Полное имя: {{ user.last_name }} {{ user.first_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Дата регистрации: {{ user.date_joined }}</p>
+            <p>Дата последнего входа: {{ user.last_login }}</p>
+        </div>
+        <div class="card-footer">
+            <div class="row align-items-end">
+                <div class="col"><a href="{% url 'mainapp:edit_profile' %}"
+                                    class="btn btn-primary float-right mt-3">Изменить профиль</a>
+                </div>
+                <div class="col"><a href="{% url 'mainapp:change_password' %}"
+                                    class="btn btn-danger float-right mt-3">Изменить пароль</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Панель администратора ДКЖ45.РФ">
+    <meta name="keywords" content="Панель администратора ДКЖ45.РФ">
+    <meta name="author" content="mal'fin">
+    <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <title>{{ title|capfirst }} | ISMticket</title>
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.css' %}">
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/icofont.css' %}">
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/themify.css' %}">
+    <!-- Flag icon-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/flag-icon.css' %}">
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/feather-icon.css' %}">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/scrollbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/chartist.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/date-picker.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <script src="//cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <!-- Plugins css Ends-->
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/bootstrap.css' %}">
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+    <link id="color" rel="stylesheet" href="{% static 'assets/css/color-1.css' %}" media="screen">
+    <!-- Responsive css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/responsive.css' %}">
+</head>
+<style>
+    .card {
+
+        transition: 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 -2px 13px 4px rgba(110, 102, 255, 0.12) !important;
+        transition: 0.3s ease;
+    }
+</style>
+<body class="dark-only">
+<!-- tap on top starts-->
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+<!-- tap on tap ends-->
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div class="page-header">
+        <div class="header-wrapper row m-0">
+            <div class="header-logo-wrapper col-auto p-0">
+                <div class="logo-wrapper"><a href="{% url 'mainapp:index' %}">ISMticket</a>
+                </div>
+                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle"
+                                               data-feather="align-center"></i></div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header Ends                              -->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div class="sidebar-wrapper">
+            <div>
+                <div class="logo-wrapper"><a href="{% url 'mainapp:index' %}"><h6 class="text-center">ISMticket</h6>
+                </a>
+                </div>
+                <div class="logo-icon-wrapper"><a href="{% url 'mainapp:index' %}">ISMticket</a></div>
+                <nav class="sidebar-main">
+                    <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+                    <div id="sidebar-menu">
+                        <ul class="sidebar-links" id="simple-bar">
+                            <li class="back-btn"><a href="{% url 'mainapp:index' %}">ISMticket</a>
+                                <div class="mobile-back text-end"><span>Назад</span><i class="fa fa-angle-right ps-2"
+                                                                                       aria-hidden="true"></i></div>
+                            </li>
+                            <li class="sidebar-list">
+                                <a class="sidebar-link sidebar-title link-nav" href="{% url 'mainapp:index' %}">
+                                    <i data-feather="home"> </i><span>Главная</span></a></li>
+                            <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                        href="#"><i
+                                    data-feather="headphones"> </i><span>Поддержка</span></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                href="{% url 'mainapp:my_ticket' %}"><span>Мои тикеты</span></a>
+                                    </li>
+                                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                href="{% url 'mainapp:create_ticket' %}"><span>Создать тикет</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                        href="#"><i
+                                    data-feather="user"> </i><span>Аккаунт</span></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                href="{% url 'mainapp:profile' %}"><span>Настройки</span></a>
+                                    </li>
+                                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                href="{% url 'authapp:logout' %}"><span>Выход</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% if user.is_superuser %}
+                                <h5 class="text-success text-center">Администратор</h5>
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                            href="#"><i
+                                        data-feather="plus"> </i><span>Новости</span></a>
+                                    <ul class="sidebar-submenu">
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:news' %}"><span>Все новости</span></a>
+                                        </li>
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:create_news' %}"><span>Добавить</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                            href="#"><i
+                                        data-feather="user"> </i><span>Пользователи</span></a>
+                                    <ul class="sidebar-submenu">
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:all_users' %}"><span>Все пользователи</span></a>
+                                        </li>
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:create_user' %}"><span>Добавить</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                            href="#"><i
+                                        data-feather="headphones"> </i><span>Тикеты</span></a>
+                                    <ul class="sidebar-submenu">
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:ticket_admin' %}"><span>Все запросы</span></a>
+                                        </li>
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="#"><span>Поиск</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% elif user.is_staff %}
+                                <h5 class="text-success text-center">Тех.поддержка</h5>
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                                                            href="#"><i
+                                        data-feather="headphones"> </i><span>Тикеты</span></a>
+                                    <ul class="sidebar-submenu">
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="{% url 'mainapp:ticket_admin' %}"><span>Все запросы</span></a>
+                                        </li>
+                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                                                    href="#"><span>Поиск</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+                    <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="container-fluid">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+        <!-- footer start-->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 footer-copyright text-center">
+                        <p class="mb-0">ISMticket </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- latest jquery-->
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<!-- Bootstrap js-->
+<script src="{% static 'assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+<!-- feather icon js-->
+<script src="{% static 'assets/js/icons/feather-icon/feather.min.js' %}"></script>
+<script src="{% static 'assets/js/icons/feather-icon/feather-icon.js' %}"></script>
+<!-- scrollbar js-->
+<script src="{% static 'assets/js/scrollbar/simplebar.js' %}"></script>
+<script src="{% static 'assets/js/scrollbar/custom.js' %}"></script>
+<!-- Sidebar jquery-->
+<script src="{% static 'assets/js/config.js' %}"></script>
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+{#<script src="{% static 'assets/js/notify/bootstrap-notify.min.js' %}"></script>#}
+<script src="{% static 'assets/js/dashboard/default.js' %}"></script>
+<script src="{% static 'assets/js/notify/index.js' %}"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.js' %}"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.en.js' %}"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.custom.js' %}"></script>
+<script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+<!-- Plugins JS Ends-->
+<!-- Theme js-->
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/main.js' %}"></script>
+
+<script>
+    {% for item in messages %}
+        notyf.success("{{ item }}");
+    {% endfor %}
+
+</script>
+{#<script src="{% static 'assets/js/theme-customizer/customizer.js' %}"></script>#}
+<!-- login js-->
+<!-- Plugin used-->
+</body>
+</html>

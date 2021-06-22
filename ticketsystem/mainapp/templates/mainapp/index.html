@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <h3>Привет, {{ user.first_name }}!</h3>
+    <h5 class="mt-4">Последние новости</h5>
+    {% if news %}
+        {% for item in news %}
+            <div class="card mt-3">
+                <div class="card-header">{{ item.title }}</div>
+                <div class="card-body">
+                    <p>{{ item.text }}</p>
+                </div>
+                <div class="card-footer">Дата публикации: {{ item.date }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <p>Нету новостей!</p>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+{% endblock %}

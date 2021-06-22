@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="card shadow-none border animate__animated">
+        <div class="card-header"><h5 class="card-title">Изменить профиль</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-lg btn-success btn-block">Сохранить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <h3>Привет, {{ user.first_name }}!</h3>
+    <h5 class="mt-4">Последние новости</h5>
+    {% if news %}
+        {% for item in news %}
+            <div class="card mt-3">
+                <div class="card-header">{{ item.title }}</div>
+                <div class="card-body">
+                    <p>{{ item.text }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col"><a href="{% url 'mainapp:edit_news' item.id %}" class="btn btn-success">Редактировать</a>
+                        </div>
+                        <div class="col"><a href="{% url 'mainapp:remove_news' item.id %}" class="btn btn-danger">Удалить</a>
+                        </div>
+                        <div class="col">Дата публикации: {{ item.date }}</div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <p>Нету новостей!</p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

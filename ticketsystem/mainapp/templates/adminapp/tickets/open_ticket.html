@@ -1,0 +1,99 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="content">
+        <div class="content__inner">
+            <header class="content__title">
+                <h1>Обращение</h1>
+            </header>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col call-chat-body">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="row chat-box">
+                                    <!-- Chat right side start-->
+                                    <div class="col pe-0 chat-right-aside">
+                                        <!-- chat start-->
+                                        <div class="chat">
+                                            <!-- chat-header start-->
+                                            <div class="chat-header clearfix">
+                                                <div class="about">
+                                                    {% for item in ticket %}
+                                                        <div class="name">Обращение
+                                                            №{{ item.id }} | Тема: {{ item.title }}
+                                                        </div>
+                                                        {% if item.status == '0' %}
+                                                            <div class="status text-white">Статус: Ожидает вашего
+                                                                ответа
+                                                            </div>
+                                                        {% elif item.status == '1' %}
+                                                            <div class="status text-success">Статус: Ожидает ответа от
+                                                                пользователя
+                                                            </div>
+                                                        {% elif item.status == '2' %}
+                                                            <div class="status text-danger">Статус: Закрыт</div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <!-- chat-header end-->
+                                            <div class="chat-history chat-msg-box custom-scrollbar">
+                                                <ul>
+                                                    {% for item in ticket %}
+                                                        <li>
+                                                            <div class="message my-message text-white">
+                                                                {{ item.message|linebreaksbr }}
+                                                            </div>
+                                                        </li>
+                                                        {% if item.answer %}
+                                                            <li class="clearfix">
+                                                                <div class="message other-message pull-right">
+                                                                    Поддержка: <br/>
+                                                                    {{ item.answer }}
+                                                                </div>
+                                                            </li>
+                                                        {% else %}
+                                                            <li class="clearfix">
+                                                                <div class="message other-message pull-right text-danger">
+                                                                    Ожидает ответа!
+                                                                </div>
+                                                            </li>
+                                                        {% endif %}
+
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            {% for item in ticket %}
+                                                <div class="chat-message clearfix">
+                                                    <div class="row">
+                                                        <div class="col-xl-12 d-flex">
+                                                            {% for item in ticket %}
+                                                                <div class="row">
+                                                                    <div class="col"><a
+                                                                            href="{% url 'mainapp:send_message_admin' item.id %}"
+                                                                            class="btn btn-success">Ответить</a>
+                                                                    </div>
+                                                                    <div class="col"><a
+                                                                            href="{% url 'mainapp:close_ticket' item.id %}"
+                                                                            class="btn btn-danger">Закрыть</a></div>
+                                                                </div>
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
