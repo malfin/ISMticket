@@ -223,7 +223,7 @@
 
 <script>
     {% for item in messages %}
-        notyf.success("{{ item }}");
+        notyf.{% if item.tags %}{{ item.tags }}("{{ item }}"){% endif %};
     {% endfor %}
 
 </script>
