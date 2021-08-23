@@ -5,7 +5,8 @@
         <div class="card-body">
             {% for item in ticket %}
                 <p>
-                    Сообщение от пользователя: <br/>{{ item.message }}
+                    Сообщение от пользователя ({{ item.user.last_name }} {{ item.user.first_name }}):
+                    <br/>{{ item.message }}
                 </p>
             {% endfor %}
         </div>

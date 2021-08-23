@@ -28,7 +28,7 @@ def my_ticket(request):
         'title': 'мои тикеты',
         'ticket': ticket,
     }
-    return render(request, 'mainapp/my_ticket.html', context)
+    return render(request, 'mainapp/tickets/my_ticket.html', context)
 
 
 @login_required
@@ -38,7 +38,7 @@ def open_ticket(request, pk):
         'title': f'Обращение: {request.user.first_name} | {request.user.username}',
         'ticket': ticket,
     }
-    return render(request, 'mainapp/open_ticket.html', context)
+    return render(request, 'mainapp/tickets/open_ticket.html', context)
 
 
 @login_required
@@ -57,7 +57,7 @@ def create_ticket(request):
         'title': 'Создать обращение в тех.поддержку',
         'form': form,
     }
-    return render(request, 'mainapp/create_ticket.html', context)
+    return render(request, 'mainapp/tickets/create_ticket.html', context)
 
 
 @login_required
@@ -76,7 +76,7 @@ def send_message(request, pk):
         'title': f'Ответить на обращение {request.user.username}',
         'form': form,
     }
-    return render(request, 'mainapp/send_ticket.html', context)
+    return render(request, 'mainapp/tickets/send_ticket.html', context)
 
 
 @login_required
@@ -179,7 +179,7 @@ def edit_news(request, pk):
             'title': 'изменить новость',
             'form': form,
         }
-        return render(request, 'mainapp/create_ticket.html', context)
+        return render(request, 'mainapp/tickets/create_ticket.html', context)
     else:
         return HttpResponseRedirect(reverse('mainapp:index'))
 
@@ -198,7 +198,13 @@ def remove_news(request, pk):
 @login_required
 def ticket_admin(request):
     if request.user.is_superuser or request.user.is_staff:
-        ticket = Tickets.objects.all()
+        if 'search_title' in request.GET:
+            search_title = request.GET['search_title']
+            ticket = Tickets.objects.filter(title__icontains=search_title)
+            if not ticket:
+                ticket = Tickets.objects.filter(user__username__icontains=search_title)
+        else:
+            ticket = Tickets.objects.all()
         context = {
             'title': 'все тикеты',
             'ticket': ticket,
@@ -222,6 +228,13 @@ def open_ticket_admin(request, pk):
 
 
 @login_required
+def open_ticket_message(request, pk):
+    if request.user.is_superuser or request.user.is_staff:
+        ticket = get_object_or_404(Tickets, id=pk)
+        ticket.send_ticket()
+        return redirect('mainapp:open_ticket_admin', pk)
+
+@login_required
 def send_message_admin(request, pk):
     if request.user.is_superuser or request.user.is_staff:
         ticket_get = get_object_or_404(Tickets, id=pk)
@@ -232,7 +245,7 @@ def send_message_admin(request, pk):
                 ticket_get.send_ticket()
                 form.save()
                 messages.success(request, 'Вы успешно изменили тикет!')
-                return redirect('mainapp:open_ticket_admin', pk)
+                return HttpResponseRedirect(reverse('mainapp:ticket_admin'))
         else:
             form = SupportFormAdmin(instance=ticket_get)
         context = {
@@ -251,7 +264,7 @@ def close_ticket_admin(request, pk):
         ticket_get = get_object_or_404(Tickets, id=pk)
         ticket_get.close_ticket()
         messages.success(request, 'Вы успешно закрыли тикет!')
-        return redirect('mainapp:open_ticket_admin', pk)
+        return HttpResponseRedirect(reverse('mainapp:ticket_admin'))
     else:
         return HttpResponseRedirect(reverse('mainapp:index'))
 

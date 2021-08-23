@@ -1,9 +1,42 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="card">
+    <div class="card shadow-sm">
         <div class="card-header">
             <h5>Все запросы</h5><span>Выберите, чтобы перейти</span>
+            <hr>
+            <!-- Vertically centered modal-->
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                Найти тикет
+            </button>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Найти тикет</h5>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="get">
+                            <div class="modal-body">
+                                <div class="container">
+                                    <label class="form-label" for="exampleFormControlInput1">Найти
+                                        пользователя/тему</label>
+                                    <input type="text" class="form-control required" id="exampleFormControlInput1"
+                                           name="search_title"
+                                           placeholder="Найти тикет">
+                                </div>
+                                <p class="m-3 font-danger text-center">Вы можете найти тикет по пользователю или по
+                                    теме(можно по словам)!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Закрыть</button>
+                                <button class="btn btn-primary" type="submit">Найти</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         {% if ticket %}
             <div class="table-responsive">
@@ -14,6 +47,7 @@
                         <th scope="col">Статус</th>
                         <th scope="col">Пользователь</th>
                         <th scope="col">Тема</th>
+                        <th scope="col">Отдел</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">Действие</th>
                     </tr>
@@ -23,7 +57,7 @@
                         <tr>
                             <th scope="row">{{ item.pk }}</th>
                             {% if item.status == '0' %}
-                                <td class="text-white">Ожидает вашего ответа</td>
+                                <td class="text-dark">Ожидает вашего ответа</td>
                             {% elif item.status == '1' %}
                                 <td class="text-success">Ожидает ответа от пользователя</td>
                             {% elif item.status == '2' %}
@@ -31,6 +65,15 @@
                             {% endif %}
                             <td>{{ item.user }}</td>
                             <td>{{ item.title }}</td>
+                            {% if item.category == '0' %}
+                                <td>Общие вопросы</td>
+                            {% elif item.category == '1' %}
+                                <td>Финансовый</td>
+                            {% elif item.category == '2' %}
+                                <td>Технический</td>
+                            {% elif item.category == '3' %}
+                                <td>Баги/проблемы сайта</td>
+                            {% endif %}
                             <td>{{ item.date }}</td>
                             <td><a href="{% url 'mainapp:open_ticket_admin' item.id %}">Открыть</a></td>
                         </tr>
@@ -41,6 +84,5 @@
         {% else %}
             <h3 class="m-3 text-center">На данный момент нет запросов.</h3>
         {% endif %}
-
     </div>
 {% endblock %}

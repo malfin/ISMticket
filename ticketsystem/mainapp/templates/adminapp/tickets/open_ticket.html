@@ -8,7 +8,6 @@
             </header>
             <div class="container-fluid">
                 <div class="row">
-
                     <div class="col call-chat-body">
                         <div class="card">
                             <div class="card-body p-0">
@@ -23,9 +22,10 @@
                                                     {% for item in ticket %}
                                                         <div class="name">Обращение
                                                             №{{ item.id }} | Тема: {{ item.title }}
+                                                            | {{ item.user.last_name }} {{ item.user.first_name }}
                                                         </div>
                                                         {% if item.status == '0' %}
-                                                            <div class="status text-white">Статус: Ожидает вашего
+                                                            <div class="status text-dark">Статус: Ожидает вашего
                                                                 ответа
                                                             </div>
                                                         {% elif item.status == '1' %}
@@ -43,20 +43,26 @@
                                                 <ul>
                                                     {% for item in ticket %}
                                                         <li>
-                                                            <div class="message my-message text-white">
+                                                            <div class="message my-message text-dark shadow-sm">
                                                                 {{ item.message|linebreaksbr }}
+                                                                {% if item.desk %}
+                                                                    <hr>
+                                                                    <p class="text-danger">
+                                                                        Примечание: {{ item.desk|linebreaksbr }}
+                                                                    </p>
+                                                                {% endif %}
                                                             </div>
                                                         </li>
                                                         {% if item.answer %}
                                                             <li class="clearfix">
-                                                                <div class="message other-message pull-right">
+                                                                <div class="message other-message pull-right shadow-sm">
                                                                     Поддержка: <br/>
                                                                     {{ item.answer }}
                                                                 </div>
                                                             </li>
                                                         {% else %}
                                                             <li class="clearfix">
-                                                                <div class="message other-message pull-right text-danger">
+                                                                <div class="message other-message pull-right text-danger shadow-sm">
                                                                     Ожидает ответа!
                                                                 </div>
                                                             </li>
@@ -75,9 +81,18 @@
                                                                             href="{% url 'mainapp:send_message_admin' item.id %}"
                                                                             class="btn btn-success">Ответить</a>
                                                                     </div>
-                                                                    <div class="col"><a
-                                                                            href="{% url 'mainapp:close_ticket_admin' item.id %}"
-                                                                            class="btn btn-danger">Закрыть</a></div>
+                                                                    <div class="col">
+                                                                        {% if item.status == '2' %}
+                                                                            <a
+                                                                                    href="{% url 'mainapp:open_ticket_message' item.id %}"
+                                                                                    class="btn btn-primary">Открыть
+                                                                                тикет</a>
+                                                                        {% else %}
+                                                                            <a
+                                                                                    href="{% url 'mainapp:close_ticket_admin' item.id %}"
+                                                                                    class="btn btn-danger">Закрыть</a>
+                                                                        {% endif %}
+                                                                    </div>
                                                                 </div>
                                                             {% endfor %}
 

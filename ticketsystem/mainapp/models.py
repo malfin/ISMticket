@@ -69,6 +69,7 @@ class Tickets(models.Model):
     message = models.TextField(verbose_name='Сообщение')
     answer = models.TextField(verbose_name='Ответ от тех.поддержки', blank=True)
     status = models.CharField(verbose_name='Статус', choices=STATUS, default=0, max_length=128)
+    desk = models.TextField(verbose_name='Примечание (если его нет, оставьте поле пустым)', blank=True)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):

@@ -52,7 +52,7 @@
         transition: 0.3s ease;
     }
 </style>
-<body class="dark-only">
+<body>
 <!-- tap on top starts-->
 <div class="tap-top"><i data-feather="chevrons-up"></i></div>
 <!-- tap on tap ends-->
@@ -147,9 +147,6 @@
                                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                                                     href="{% url 'mainapp:ticket_admin' %}"><span>Все запросы</span></a>
                                         </li>
-                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                                                    href="#"><span>Поиск</span></a>
-                                        </li>
                                     </ul>
                                 </li>
                             {% elif user.is_staff %}
@@ -160,9 +157,6 @@
                                     <ul class="sidebar-submenu">
                                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                                                     href="{% url 'mainapp:ticket_admin' %}"><span>Все запросы</span></a>
-                                        </li>
-                                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                                                    href="#"><span>Поиск</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -223,7 +217,7 @@
 
 <script>
     {% for item in messages %}
-        notyf.{% if item.tags %}{{ item.tags }}("{{ item }}"){% endif %};
+        notyf.success("{{ item }}");
     {% endfor %}
 
 </script>

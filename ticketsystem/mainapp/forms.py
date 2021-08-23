@@ -59,6 +59,8 @@ class SupportFormAdmin(forms.ModelForm):
             'category',
             'title',
             'answer',
+            'status',
+            'desk',
         )
 
     def __init__(self, *args, **kwargs):

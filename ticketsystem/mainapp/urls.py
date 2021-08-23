@@ -24,6 +24,7 @@ urlpatterns = [
     path('ticket/admin/open/<int:pk>/', mainapp.open_ticket_admin, name='open_ticket_admin'),
     path('ticket/admin/send/<int:pk>/', mainapp.send_message_admin, name='send_message_admin'),
     path('ticket/admin/close/<int:pk>/', mainapp.close_ticket_admin, name='close_ticket_admin'),
+    path('ticket/admin/open_message/<int:pk>/', mainapp.open_ticket_message, name='open_ticket_message'),
 
     path('userprofile/', mainapp.all_users, name='all_users'),
     path('userprofile/edit/<int:pk>/', mainapp.edit_profile_admin, name='edit_profile_admin'),
